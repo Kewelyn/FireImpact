@@ -1,5 +1,9 @@
 from django.forms import ModelForm
+from django import forms
 from .models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
+
+class UploadFileForm(forms.Form):
+    arquivo = forms.FileField()
 
 class BiomaAmazoniaForm(ModelForm):
     class Meta:
