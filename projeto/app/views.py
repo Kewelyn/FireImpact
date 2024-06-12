@@ -42,7 +42,7 @@ def delete_amazonia(request, id):
 def deleteBiomaCerrado(request, id):
     Cerrado = get_object_or_404(BiomaCerrado, pk=id)
     Cerrado.delete()
-    return redirect("readBiomaCerrado")
+    return redirect("listar_cerrado")
 
 def deleteBiomaCaatinga(request, id):
     Caatinga = get_object_or_404(BiomaCaatinga, pk=id)
