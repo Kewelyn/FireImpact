@@ -369,3 +369,4 @@ def downloadBiomaAmazonia(request, pk):
     Amazonia = get_object_or_404(BiomaAmazonia, pk=pk)
     response = FileResponse(Amazonia.arquivo)
     return response
+
