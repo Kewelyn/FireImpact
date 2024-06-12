@@ -10,9 +10,9 @@ from . models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, Bio
 def home(request):
     return render(request, 'home.html')
 
-def readBiomaAmazonia(request):
+def listar_amazonia(request):
     Amazonia = BiomaAmazonia.objects.all()
-    return render(request, 'readBiomaAmazonia.html',{'Amazonia':Amazonia})
+    return render(request, 'listar_amazonia.html',{'Amazonia':Amazonia})
 
 def readBiomaCerrado(request):
     Cerrado = BiomaCerrado.objects.all()
@@ -91,7 +91,7 @@ def BiomaAmazonia_import(request):
                     novembro=row['Novembro'],
                     dezembro=row['Dezembro'])
 
-            return redirect("listar_BiomaAmazonia")
+            return redirect("listar_amazonia")
     else:
         form = UploadFileForm()
         return render(request, 'importarDados.html', {'form':form})
