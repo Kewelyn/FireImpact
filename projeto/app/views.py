@@ -1,4 +1,3 @@
-import csv
 import io
 import csv
 from django.http import FileResponse, HttpResponse
