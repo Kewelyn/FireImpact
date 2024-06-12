@@ -14,55 +14,55 @@ def listar_amazonia(request):
     Amazonia = BiomaAmazonia.objects.all()
     return render(request, 'listar_amazonia.html',{'Amazonia':Amazonia})
 
-def readBiomaCerrado(request):
+def listar_cerrado(request):
     Cerrado = BiomaCerrado.objects.all()
-    return render(request, 'readBiomaCerrado.html',{'Cerrado':Cerrado})
+    return render(request, 'listar_cerrado.html',{'Cerrado':Cerrado})
 
-def readBiomaCaatinga(request):
+def listar_caatinga(request):
     Caatinga = BiomaCaatinga.objects.all()
-    return render(request, 'readBiomaCaatinga.html',{'Caatinga':Caatinga})
+    return render(request, 'listar_caatinga.html',{'Caatinga':Caatinga})
 
-def readBiomaPampa(request):
+def listar_pampa(request):
     Pampa = BiomaPampa.objects.all()
-    return render(request, 'readBiomaPampa.html',{'Pampa':Pampa})
+    return render(request, 'listar_pampa.html',{'Pampa':Pampa})
 
-def readBiomaPantanal(request):
+def listar_pantanal(request):
     Pantanal = BiomaPantanal.objects.all()
-    return render(request, 'readBiomaPantanal.html',{'Pantanal':Pantanal})
+    return render(request, 'listar_pantanal.html',{'Pantanal':Pantanal})
 
-def readBiomaMataAtlantica(request):
+def listar_atlantica(request):
     MataAtlantica = BiomaMataAtlantica.objects.all()
-    return render(request, 'readBiomaMataAtlantica.html',{'MataAtlantica':MataAtlantica})
+    return render(request, 'listar_atlantica.html',{'MataAtlantica':MataAtlantica})
 
 def delete_amazonia(request, id):
     Amazonia = get_object_or_404(BiomaAmazonia, pk=id)
     Amazonia.delete()
     return redirect("listar_amazonia")
 
-def deleteBiomaCerrado(request, id):
+def delete_cerrado(request, id):
     Cerrado = get_object_or_404(BiomaCerrado, pk=id)
     Cerrado.delete()
     return redirect("listar_cerrado")
 
-def deleteBiomaCaatinga(request, id):
+def delete_caatinga(request, id):
     Caatinga = get_object_or_404(BiomaCaatinga, pk=id)
     Caatinga.delete()
-    return redirect("readBiomaCaatinga")
+    return redirect("listar_caatinga")
 
-def deleteBiomaPampa(request, id):
+def delete_pampa(request, id):
     Pampa = get_object_or_404(BiomaPampa, pk=id)
     Pampa.delete()
-    return redirect("readBiomaPampa")
+    return redirect("listar_pampa")
 
-def deleteBiomaPantanal(request, id):
+def delete_pantanal(request, id):
     Pantanal = get_object_or_404(BiomaPantanal, pk=id)
     Pantanal.delete()
-    return redirect("readBiomaPantanal")
+    return redirect("listar_pantanal")
 
-def deleteBiomaMataAtlantica(request, id):
+def delete_atlantica(request, id):
     MataAtlantica = get_object_or_404(BiomaMataAtlantica, pk=id)
     MataAtlantica.delete()
-    return redirect("readBiomaMataAtlantica")
+    return redirect("listar_atlantica")
 
 def BiomaAmazonia_import(request):
     if request.method == "POST":
