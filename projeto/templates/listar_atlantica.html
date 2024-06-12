@@ -12,7 +12,7 @@
 <body style="background-color: #e4e4e4ce;">
 {% if request.user.is_authenticated %}
      <div class = "col-8 m-auto pt-2 pb-2 text-center">
-         <h2 class="topo">DADOS DO CERRADO</h2>
+         <h2 class="topo">DADOS DA MATA ATLANTICA</h2>
         <form method = "get">
             <input type="text" id="search" name="search" class="form-control" placeholder="Buscar">
         </form>
@@ -43,28 +43,28 @@
                   </tr>
             </thead>
             <tbody>
-                {%for Cerrado in page.object_list %}
+                {%for MataAtlantica in page.object_list %}
 
                   <tr>
-                    <th>{{Cerrado.maxima}}</th>
-                    <td>{{Cerrado.media}}</td>
-                    <td>{{Cerrado.minima}}</td>
-                    <td>{{Cerrado.anos}}</td>
-                    <td>{{Cerrado.total}}</td>
-                    <td>{{Cerrado.janeiro}}</td>
-                    <td>{{Cerrado.fevereiro}}</td>
-                    <td>{{Cerrado.marco}}</td>
-                    <td>{{Cerrado.abril}}</td>
-                    <th>{{Cerrado.maio}}</th>
-                    <td>{{Cerrado.junho}}</td>
-                    <td>{{Cerrado.julho}}</td>
-                    <td>{{Cerrado.agosto}}</td>
-                    <td>{{Cerrado.setembro}}</td>
-                    <td>{{Cerrado.outubro}}</td>
-                    <td>{{Cerrado.novembro}}</td>
-                    <td>{{Cerrado.dezembro}}</td>
+                    <th>{{MataAtlantica.maxima}}</th>
+                    <td>{{MataAtlantica.media}}</td>
+                    <td>{{MataAtlantica.minima}}</td>
+                    <td>{{MataAtlantica.anos}}</td>
+                    <td>{{MataAtlantica.total}}</td>
+                    <td>{{MataAtlantica.janeiro}}</td>
+                    <td>{{MataAtlantica.fevereiro}}</td>
+                    <td>{{MataAtlantica.marco}}</td>
+                    <td>{{MataAtlantica.abril}}</td>
+                    <th>{{MataAtlantica.maio}}</th>
+                    <td>{{MataAtlantica.junho}}</td>
+                    <td>{{MataAtlantica.julho}}</td>
+                    <td>{{MataAtlantica.agosto}}</td>
+                    <td>{{MataAtlantica.setembro}}</td>
+                    <td>{{MataAtlantica.outubro}}</td>
+                    <td>{{MataAtlantica.novembro}}</td>
+                    <td>{{MataAtlantica.dezembro}}</td>
                     <td>
-                       <a href="{% url 'delete_cerrado' Cerrado.id %}" class="btn btn-danger" onclick="return confirm('Deseja mesmo apagar este item?')"> Deletar </a>
+                       <a href="{% url 'delete_atlantica' MataAtlantica.id %}" class="btn btn-danger" onclick="return confirm('Deseja mesmo apagar este item?')"> Deletar </a>
                     </td>
                   </tr>
                 {%endfor%}
@@ -73,10 +73,10 @@
 
         <div class="page">
             {% if page.has_previous %}
-                <a class="page" href="{% url 'listar_cerrado' %}?page={{page.previous_page_number}}">Anterior</a>
+                <a class="page" href="{% url 'listar_atlantica' %}?page={{page.previous_page_number}}">Anterior</a>
             {% endif %}
             {% if page.has_next %}
-                <a class="page" href="{% url 'listar_cerrado' %}?page={{page.next_page_number}}">Próximo</a>
+                <a class="page" href="{% url 'listar_atlantica' %}?page={{page.next_page_number}}">Próximo</a>
             {% endif %}
         </div>
 </body>

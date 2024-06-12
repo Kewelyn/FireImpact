@@ -12,7 +12,7 @@
 <body style="background-color: #e4e4e4ce;">
 {% if request.user.is_authenticated %}
      <div class = "col-8 m-auto pt-2 pb-2 text-center">
-         <h2 class="topo">DADOS DO CERRADO</h2>
+         <h2 class="topo">DADOS DA CAATINGA</h2>
         <form method = "get">
             <input type="text" id="search" name="search" class="form-control" placeholder="Buscar">
         </form>
@@ -43,28 +43,28 @@
                   </tr>
             </thead>
             <tbody>
-                {%for Cerrado in page.object_list %}
+                {%for Caatinga in page.object_list %}
 
                   <tr>
-                    <th>{{Cerrado.maxima}}</th>
-                    <td>{{Cerrado.media}}</td>
-                    <td>{{Cerrado.minima}}</td>
-                    <td>{{Cerrado.anos}}</td>
-                    <td>{{Cerrado.total}}</td>
-                    <td>{{Cerrado.janeiro}}</td>
-                    <td>{{Cerrado.fevereiro}}</td>
-                    <td>{{Cerrado.marco}}</td>
-                    <td>{{Cerrado.abril}}</td>
-                    <th>{{Cerrado.maio}}</th>
-                    <td>{{Cerrado.junho}}</td>
-                    <td>{{Cerrado.julho}}</td>
-                    <td>{{Cerrado.agosto}}</td>
-                    <td>{{Cerrado.setembro}}</td>
-                    <td>{{Cerrado.outubro}}</td>
-                    <td>{{Cerrado.novembro}}</td>
-                    <td>{{Cerrado.dezembro}}</td>
+                    <th>{{Caatinga.maxima}}</th>
+                    <td>{{Caatinga.media}}</td>
+                    <td>{{Caatinga.minima}}</td>
+                    <td>{{Caatinga.anos}}</td>
+                    <td>{{Caatinga.total}}</td>
+                    <td>{{Caatinga.janeiro}}</td>
+                    <td>{{Caatinga.fevereiro}}</td>
+                    <td>{{Caatinga.marco}}</td>
+                    <td>{{Caatinga.abril}}</td>
+                    <th>{{Caatinga.maio}}</th>
+                    <td>{{Caatinga.junho}}</td>
+                    <td>{{Caatinga.julho}}</td>
+                    <td>{{Caatinga.agosto}}</td>
+                    <td>{{Caatinga.setembro}}</td>
+                    <td>{{Caatinga.outubro}}</td>
+                    <td>{{Caatinga.novembro}}</td>
+                    <td>{{Caatinga.dezembro}}</td>
                     <td>
-                       <a href="{% url 'delete_cerrado' Cerrado.id %}" class="btn btn-danger" onclick="return confirm('Deseja mesmo apagar este item?')"> Deletar </a>
+                       <a href="{% url 'delete_caatinga' Caatinga.id %}" class="btn btn-danger" onclick="return confirm('Deseja mesmo apagar este item?')"> Deletar </a>
                     </td>
                   </tr>
                 {%endfor%}
@@ -73,10 +73,10 @@
 
         <div class="page">
             {% if page.has_previous %}
-                <a class="page" href="{% url 'listar_cerrado' %}?page={{page.previous_page_number}}">Anterior</a>
+                <a class="page" href="{% url 'listar_caatinga' %}?page={{page.previous_page_number}}">Anterior</a>
             {% endif %}
             {% if page.has_next %}
-                <a class="page" href="{% url 'listar_cerrado' %}?page={{page.next_page_number}}">Próximo</a>
+                <a class="page" href="{% url 'listar_caatinga' %}?page={{page.next_page_number}}">Próximo</a>
             {% endif %}
         </div>
 </body>
