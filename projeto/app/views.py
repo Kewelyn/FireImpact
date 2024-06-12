@@ -34,10 +34,10 @@ def readBiomaMataAtlantica(request):
     MataAtlantica = BiomaMataAtlantica.objects.all()
     return render(request, 'readBiomaMataAtlantica.html',{'MataAtlantica':MataAtlantica})
 
-def deleteBiomaAmazonia(request, id):
+def delete_amazonia(request, id):
     Amazonia = get_object_or_404(BiomaAmazonia, pk=id)
     Amazonia.delete()
-    return redirect("readBiomaAmazonia")
+    return redirect("listar_amazonia")
 
 def deleteBiomaCerrado(request, id):
     Cerrado = get_object_or_404(BiomaCerrado, pk=id)

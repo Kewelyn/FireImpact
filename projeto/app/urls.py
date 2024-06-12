@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from .viewsets import BiomaAmazoniaViewSet, BiomaCerradoViewSet, BiomaCaatingaViewSet, BiomaPampaViewSet, BiomaPantanalViewSet, BiomaMataAtlanticaViewSet
-from .views import home, listar_amazonia, readBiomaCerrado, readBiomaCaatinga, readBiomaPampa, readBiomaPantanal, readBiomaMataAtlantica, deleteBiomaAmazonia, deleteBiomaCerrado, deleteBiomaCaatinga, deleteBiomaPampa, deleteBiomaPantanal, deleteBiomaMataAtlantica
+from .views import home, listar_amazonia, readBiomaCerrado, readBiomaCaatinga, readBiomaPampa, readBiomaPantanal, readBiomaMataAtlantica, delete_amazonia, deleteBiomaCerrado, deleteBiomaCaatinga, deleteBiomaPampa, deleteBiomaPantanal, deleteBiomaMataAtlantica
 
 router = routers.DefaultRouter()
 router.register(r'biomaamazonia', BiomaAmazoniaViewSet, basename="BiomaAmazonia")
@@ -20,7 +20,7 @@ urlpatterns = [
     path('readBiomaPampa', readBiomaPampa, name='readBiomaPampa'),
     path('readBiomaPantanal', readBiomaPantanal, name='readBiomaPantanal'),
     path('readBiomaMataAtlantica', readBiomaMataAtlantica, name='readBiomaMataAtlantica'),
-    path('deleteBiomaAmazonia/<int:id>', deleteBiomaAmazonia, name='deleteBiomaAmazonia'),
+    path('delete_amazonia/<int:id>', delete_amazonia, name='delete_amazonia'),
     path('deleteBiomaCerrado/<int:id>', deleteBiomaCerrado, name='deleteBiomaCerrado'),
     path('deleteBiomaCaatinga/<int:id>', deleteBiomaCaatinga, name='deleteBiomaCaatinga'),
     path('deleteBiomaPampa/<int:id>', deleteBiomaPampa, name='deleteBiomaPampa'),
