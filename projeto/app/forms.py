@@ -3,7 +3,15 @@ from django import forms
 from .models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
 
 class UploadFileForm(forms.Form):
-    arquivo = forms.FileField()
+    file = forms.FileField()
+    bioma = forms.ChoiceField(choices=[
+        ('BiomaAmazonia', 'Amazonia'),
+        ('BiomaCerrado', 'Cerrado'),
+        ('BiomaCaatinga', 'Caatinga'),
+        ('BiomaPampa', 'Pampa'),
+        ('BiomaPantanal', 'Pantanal'),
+        ('BiomaMataAtlantica', 'Mata Atlantica')
+    ])
 
 class BiomaAmazoniaForm(ModelForm):
     class Meta:

@@ -12,7 +12,50 @@ def home(request):
     return render(request, 'home.html')
 
 def importar_dados(request):
-    return render(request, 'importar_dados.html')
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            bioma = form.cleaned_data['bioma']
+            reader = csv.DictReader(io.StringIO(request.FILES["file"].read().decode('utf-8')))
+
+            if bioma == 'BiomaAmazonia':
+                model = BiomaAmazonia
+            elif bioma == 'BiomaCerrado':
+                model = BiomaCerrado
+            elif bioma == 'BiomaCaatinga':
+                model = BiomaCaatinga
+            elif bioma == 'BiomaPampa':
+                model = BiomaPampa
+            elif bioma == 'BiomaPantanal':
+                model = BiomaPantanal
+            elif bioma == 'BiomaMataAtlantica':
+                model = BiomaMataAtlantica
+
+            for row in reader:
+                model.objects.create(
+                    maxima=row['maxima'],
+                    media=row['media'],
+                    minima=row['minima'],
+                    anos=row['ano'],
+                    total=row['Total'],
+                    janeiro=row['Janeiro'],
+                    fevereiro=row['Fevereiro'],
+                    marco=row['Marco'],
+                    abril=row['Abril'],
+                    maio=row['Maio'],
+                    junho=row['Junho'],
+                    julho=row['Julho'],
+                    agosto=row['Agosto'],
+                    setembro=row['Setembro'],
+                    outubro=row['Outubro'],
+                    novembro=row['Novembro'],
+                    dezembro=row['Dezembro']
+                )
+
+            return redirect("listar_{}".format(bioma.lower()))
+    else:
+        form = UploadFileForm()
+    return render(request, 'importar_dados.html', {'form': form})
 
 def listar_amazonia(request):
     Amazonia = BiomaAmazonia.objects.all()
@@ -68,7 +111,7 @@ def delete_atlantica(request, id):
     MataAtlantica.delete()
     return redirect("listar_atlantica")
 
-def BiomaAmazonia_import(request):
+"""def BiomaAmazonia_import(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -258,7 +301,7 @@ def BiomaMataAtlantica_import(request):
             return redirect("listar_BiomaMataAtlantica")
     else:
         form = UploadFileForm()
-        return render(request, 'importar_dados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})"""
 
 def downloadCSVBiomaAmazonia(request):
     response = HttpResponse(mimetype='text/csv')

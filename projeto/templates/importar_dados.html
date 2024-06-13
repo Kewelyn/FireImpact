@@ -1,4 +1,4 @@
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,19 @@
 </head>
 <body>
     <h1>Upload de Arquivo CSV</h1>
-    <form method="post" enctype="multipart/form-data" action="{% url 'importar_dados' %}">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="arquivo">
+        <label for="bioma">Selecione o Bioma:</label>
+        <select name="bioma" id="bioma" required>
+            <option value="BiomaAmazonia">Amazonia</option>
+            <option value="BiomaCerrado">Cerrado</option>
+            <option value="BiomaCaatinga">Caatinga</option>
+            <option value="BiomaPampa">Pampa</option>
+            <option value="BiomaPantanal">Pantanal</option>
+            <option value="BiomaMataAtlantica">Mata Atlantica</option>
+        </select>
+        <br><br>
+        <input type="file" name="file" required>
         <button type="submit">Enviar</button>
     </form>
 </body>
