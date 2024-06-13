@@ -1,5 +1,6 @@
 import io
 import csv
+from .filters import BiomaFilter
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UploadFileForm, BiomaAmazoniaForm, BiomaCerradoForm, BiomaCaatingaForm, BiomaPampaForm, BiomaPantanalForm, BiomaMataAtlanticaForm
@@ -368,4 +369,31 @@ def downloadBiomaAmazonia(request, pk):
     Amazonia = get_object_or_404(BiomaAmazonia, pk=pk)
     response = FileResponse(Amazonia.arquivo)
     return response
+
+def get_bioma_model(bioma_name):
+    bioma_models = {
+        'Amazonia': BiomaAmazonia,
+        'Cerrado': BiomaCerrado,
+        'Caatinga': BiomaCaatinga,
+        'Pampa': BiomaPampa,
+        'Pantanal': BiomaPantanal,
+        'MataAtlantica': BiomaMataAtlantica,
+    }
+    return bioma_models.get(bioma_name)
+
+def filtrar_bioma(request):
+    filterset = BiomaFilter(request.GET or None)
+    bioma_data = None
+
+    if filterset.is_valid():
+        bioma_name = filterset.cleaned_data.get('Bioma')
+        bioma_model = get_bioma_model(bioma_name)
+        if bioma_model:
+            bioma_data = bioma_model.objects.all()
+
+    context = {
+        'filterset': filterset,
+        'bioma_data': bioma_data,
+    }
+    return render(request, 'filtrar_bioma.html', context)
 

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from .viewsets import BiomaAmazoniaViewSet, BiomaCerradoViewSet, BiomaCaatingaViewSet, BiomaPampaViewSet, BiomaPantanalViewSet, BiomaMataAtlanticaViewSet
-from .views import home, listar_amazonia, listar_cerrado, listar_caatinga, listar_pampa, listar_pantanal, listar_atlantica, delete_amazonia, delete_cerrado, delete_caatinga, delete_pampa, delete_pantanal, delete_atlantica
+from .views import home, listar_amazonia, listar_cerrado, listar_caatinga, listar_pampa, listar_pantanal, listar_atlantica, delete_amazonia, delete_cerrado, delete_caatinga, delete_pampa, delete_pantanal, delete_atlantica, filtrar_bioma
 
 router = routers.DefaultRouter()
 router.register(r'biomaamazonia', BiomaAmazoniaViewSet, basename="BiomaAmazonia")
@@ -26,5 +26,6 @@ urlpatterns = [
     path('delete_pampa/<int:id>', delete_pampa, name='delete_pampa'),
     path('delete_pantanal/<int:id>', delete_pantanal, name='delete_pantanal'),
     path('delete_atlantica/<int:id>', delete_atlantica, name='delete_atlantica'),
+    path('filtrar_bioma/', filtrar_bioma, name='filtrar_bioma'),
     path('api/', include(router.urls)),
 ]
