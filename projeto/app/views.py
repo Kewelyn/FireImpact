@@ -95,7 +95,7 @@ def BiomaAmazonia_import(request):
             return redirect("listar_amazonia")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def BiomaCerrado_import(request):
     if request.method == "POST":
@@ -127,7 +127,7 @@ def BiomaCerrado_import(request):
             return redirect("listar_BiomaCerrado")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def BiomaCaatinga_import(request):
     if request.method == "POST":
@@ -159,7 +159,7 @@ def BiomaCaatinga_import(request):
             return redirect("listar_BiomaCaatinga")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def BiomaPampa_import(request):
     if request.method == "POST":
@@ -191,7 +191,7 @@ def BiomaPampa_import(request):
             return redirect("listar_BiomaPampa")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def BiomaPantanal_import(request):
     if request.method == "POST":
@@ -223,7 +223,7 @@ def BiomaPantanal_import(request):
             return redirect("listar_BiomaPantanal")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def BiomaMataAtlantica_import(request):
     if request.method == "POST":
@@ -255,7 +255,7 @@ def BiomaMataAtlantica_import(request):
             return redirect("listar_BiomaMataAtlantica")
     else:
         form = UploadFileForm()
-        return render(request, 'importarDados.html', {'form':form})
+        return render(request, 'importar_dados.html', {'form':form})
 
 def downloadCSVBiomaAmazonia(request):
     response = HttpResponse(mimetype='text/csv')
