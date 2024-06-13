@@ -11,6 +11,9 @@ from . models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, Bio
 def home(request):
     return render(request, 'home.html')
 
+def importar_dados(request):
+    return render(request, 'importar_dados.html')
+
 def listar_amazonia(request):
     Amazonia = BiomaAmazonia.objects.all()
     return render(request, 'listar_amazonia.html',{'Amazonia':Amazonia})

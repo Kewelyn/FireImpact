@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Upload de Arquivo CSV</h1>
-    <form method="post" enctype="multipart/form-data" action="{% url 'importar_csv' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'importar_dados' %}">
         {% csrf_token %}
         <input type="file" name="arquivo">
         <button type="submit">Enviar</button>
