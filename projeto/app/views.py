@@ -1,5 +1,7 @@
 import io
 import csv
+import pandas as pd
+import matplotlib.pyplot as plt
 from .filters import BiomaFilter
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -442,4 +444,78 @@ def filtrar_bioma(request):
         'bioma_data': bioma_data,
     }
     return render(request, 'filtrar_bioma.html', context)
+
+def obter_dados():
+    dadosamazonia = BiomaAmazonia.objects.all()
+    df = pd.DataFrame(list(dadosamazonia.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+    dadoscerrado = BiomaCerrado.objects.all()
+    df = pd.DataFrame(list(dadoscerrado.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+    dadoscaatinga = BiomaCaatinga.objects.all()
+    df = pd.DataFrame(list(dadoscaatinga.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+    dadospampa = BiomaPampa.objects.all()
+    df = pd.DataFrame(list(dadospampa.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+    dadospantanal = BiomaPantanal.objects.all()
+    df = pd.DataFrame(list(dadospantanal.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+    dadosatlantica = BiomaMataAtlantica.objects.all()
+    df = pd.DataFrame(list(dadosatlantica.values()))
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+    for mes in meses:
+        df[mes] = pd.to_numeric(df[mes], errors='coerce')
+    return df
+
+def plotar_grafico():
+    df = obter_dados()
+
+    # Definição dos dados para o gráfico
+    anos = df['anos']
+    total_janeiro_a_junho = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho']].sum(axis=1)
+
+    # Criação do gráfico
+    plt.figure(figsize=(10, 6))
+    plt.plot(anos, total_janeiro_a_junho, marker='o', linestyle='-', color='b', label='Total de Focos Ativos')
+
+    # Configurações do gráfico
+    plt.title('Total de Focos Ativos Detectados por Mês até Junho de cada Ano')
+    plt.xlabel('Ano')
+    plt.ylabel('Total de Focos Ativos')
+    plt.grid(True)
+    plt.legend()
+
+    # Exibição do gráfico
+    plt.tight_layout()
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Chamada para gerar o gráfico
+plotar_grafico()
 
