@@ -1,6 +1,7 @@
 import io
 import csv
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from .filters import BiomaFilter
 from django.http import FileResponse, HttpResponse
@@ -418,94 +419,57 @@ def downloadBiomaAmazonia(request, pk):
     response = FileResponse(Amazonia.arquivo)
     return response
 
-def get_bioma_model(bioma_name):
-    bioma_models = {
-        'Amazonia': BiomaAmazonia,
+def seletor_bioma(bioma_name):
+    biomas = {
+        'Amazônia': BiomaAmazonia,
         'Cerrado': BiomaCerrado,
         'Caatinga': BiomaCaatinga,
         'Pampa': BiomaPampa,
         'Pantanal': BiomaPantanal,
-        'MataAtlantica': BiomaMataAtlantica,
+        'Mata Atlântica': BiomaMataAtlantica,
     }
-    return bioma_models.get(bioma_name)
+    return biomas.get(bioma_name)
 
-def filtrar_bioma(request):
-    filterset = BiomaFilter(request.GET or None)
-    bioma_data = None
-
-    if filterset.is_valid():
-        bioma_name = filterset.cleaned_data.get('Bioma')
-        bioma_model = get_bioma_model(bioma_name)
-        if bioma_model:
-            bioma_data = bioma_model.objects.all()
-
-    context = {
-        'filterset': filterset,
-        'bioma_data': bioma_data,
-    }
-    return render(request, 'filtrar_bioma.html', context)
-
-def obter_dados():
-    dadosamazonia = BiomaAmazonia.objects.all()
-    df = pd.DataFrame(list(dadosamazonia.values()))
+# Função para obter dados do bioma selecionado
+def obter_dados(bioma_model):
+    dados = bioma_model.objects.all()
+    df = pd.DataFrame(list(dados.values()))
     meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
     for mes in meses:
         df[mes] = pd.to_numeric(df[mes], errors='coerce')
     return df
 
-    dadoscerrado = BiomaCerrado.objects.all()
-    df = pd.DataFrame(list(dadoscerrado.values()))
-    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
-             'novembro', 'dezembro']
-    for mes in meses:
-        df[mes] = pd.to_numeric(df[mes], errors='coerce')
-    return df
+# Função para filtrar bioma e retornar a visualização com gráfico
+def filtrar_bioma(request):
+    filterset = BiomaFilter(request.GET or None)
+    bioma_data = None
+    bioma_name = None
 
-    dadoscaatinga = BiomaCaatinga.objects.all()
-    df = pd.DataFrame(list(dadoscaatinga.values()))
-    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
-             'novembro', 'dezembro']
-    for mes in meses:
-        df[mes] = pd.to_numeric(df[mes], errors='coerce')
-    return df
+    if filterset.is_valid():
+        bioma_name = filterset.cleaned_data.get('Bioma')
+        bioma_model = seletor_bioma(bioma_name)
+        if bioma_model:
+            bioma_data = obter_dados(bioma_model)
 
-    dadospampa = BiomaPampa.objects.all()
-    df = pd.DataFrame(list(dadospampa.values()))
-    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
-             'novembro', 'dezembro']
-    for mes in meses:
-        df[mes] = pd.to_numeric(df[mes], errors='coerce')
-    return df
+    context = {
+        'filterset': filterset,
+        'bioma_data': bioma_data,
+        'bioma_name': bioma_name,
+    }
+    return render(request, 'filtrar_bioma.html', context)
 
-    dadospantanal = BiomaPantanal.objects.all()
-    df = pd.DataFrame(list(dadospantanal.values()))
-    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
-             'novembro', 'dezembro']
-    for mes in meses:
-        df[mes] = pd.to_numeric(df[mes], errors='coerce')
-    return df
-
-    dadosatlantica = BiomaMataAtlantica.objects.all()
-    df = pd.DataFrame(list(dadosatlantica.values()))
-    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
-             'novembro', 'dezembro']
-    for mes in meses:
-        df[mes] = pd.to_numeric(df[mes], errors='coerce')
-    return df
-
-def plotar_grafico():
-    df = obter_dados()
-
+# Função para plotar a série histórica
+def serie_historica(df, bioma_name):
     # Definição dos dados para o gráfico
     anos = df['anos']
-    total_janeiro_a_junho = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho']].sum(axis=1)
+    total = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']].sum(axis=1)
 
     # Criação do gráfico
     plt.figure(figsize=(10, 6))
-    plt.plot(anos, total_janeiro_a_junho, marker='o', linestyle='-', color='b', label='Total de Focos Ativos')
+    plt.plot(anos, total, marker='o', linestyle='-', label=f'Total de Focos Ativos - {bioma_name}')
 
     # Configurações do gráfico
-    plt.title('Total de Focos Ativos Detectados por Mês até Junho de cada Ano')
+    plt.title(f'Total de Focos Ativos Detectados por Mês de cada Ano - {bioma_name}')
     plt.xlabel('Ano')
     plt.ylabel('Total de Focos Ativos')
     plt.grid(True)
@@ -516,6 +480,173 @@ def plotar_grafico():
     plt.xticks(rotation=45)
     plt.show()
 
-# Chamada para gerar o gráfico
-plotar_grafico()
+def grafico_comparativo_biomas():
+    # Obter dados de todos os biomas
+    dados_amazonia = obter_dados(BiomaAmazonia)
+    dados_cerrado = obter_dados(BiomaCerrado)
+    dados_caatinga = obter_dados(BiomaCaatinga)
+    dados_pampa = obter_dados(BiomaPampa)
+    dados_pantanal = obter_dados(BiomaPantanal)
+    dados_atlantica = obter_dados(BiomaMataAtlantica)
 
+    # Lista de DataFrames e nomes dos biomas
+    biomas = [
+        (dados_amazonia, 'Amazônia'),
+        (dados_cerrado, 'Cerrado'),
+        (dados_caatinga, 'Caatinga'),
+        (dados_pampa, 'Pampa'),
+        (dados_pantanal, 'Pantanal'),
+        (dados_atlantica, 'Mata Atlântica'),
+    ]
+
+    plt.figure(figsize=(12, 8))
+
+    for df, nome in biomas:
+        # Calcular total de focos ativos para cada ano
+        df['total'] = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']].sum(axis=1)
+        plt.plot(df['anos'], df['total'], label=nome)
+
+    # Configurações do gráfico
+    plt.title('Comparativo dos Focos Ativos entre Biomas')
+    plt.xlabel('Ano')
+    plt.ylabel('Total de Focos Ativos')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Chamada para gerar o gráfico comparativo entre biomas
+grafico_comparativo_biomas()
+
+def grafico_pizza_biomas():
+    # Obter dados de todos os biomas
+    dados_amazonia = obter_dados(BiomaAmazonia)
+    dados_cerrado = obter_dados(BiomaCerrado)
+    dados_caatinga = obter_dados(BiomaCaatinga)
+    dados_pampa = obter_dados(BiomaPampa)
+    dados_pantanal = obter_dados(BiomaPantanal)
+    dados_atlantica = obter_dados(BiomaMataAtlantica)
+
+    # Lista de DataFrames e nomes dos biomas
+    biomas = [
+        (dados_amazonia, 'Amazônia'),
+        (dados_cerrado, 'Cerrado'),
+        (dados_caatinga, 'Caatinga'),
+        (dados_pampa, 'Pampa'),
+        (dados_pantanal, 'Pantanal'),
+        (dados_atlantica, 'Mata Atlântica'),
+    ]
+
+    totais = []
+    nomes = []
+
+    for df, nome in biomas:
+        # Calcular total de focos ativos para cada bioma
+        total = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']].sum().sum()
+        totais.append(total)
+        nomes.append(nome)
+
+    # Criação do gráfico de pizza
+    plt.figure(figsize=(10, 8))
+    plt.pie(totais, labels=nomes, autopct='%1.1f%%', startangle=140)
+    plt.title('Distribuição Percentual dos Focos Ativos por Bioma')
+    plt.tight_layout()
+    plt.show()
+
+# Chamada para gerar o gráfico de pizza
+grafico_pizza_biomas()
+
+def grafico_comparativo(df, bioma_name):
+    # Definição dos dados para o gráfico
+    anos = df['anos']
+    df['total'] = df[
+        ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+         'novembro', 'dezembro']].sum(axis=1)
+
+    # Filtra dados até 2023 para calcular máximas, médias e mínimas
+    df_historico = df[df['anos'] < '2024']
+
+    # Calcular valores máximos, médios e mínimos mensais
+    maximos = df_historico.max()
+    medias = df_historico.mean()
+    minimos = df_historico.min()
+
+    # Dados do ano corrente (2024)
+    ano_corrente = df[df['anos'] == '2024']
+
+    meses = ['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+             'novembro', 'dezembro']
+
+    # Criação do gráfico
+    plt.figure(figsize=(12, 8))
+    plt.plot(meses, maximos[meses], label='Máximos', color='red', linestyle='--')
+    plt.plot(meses, medias[meses], label='Médias', color='darkorange', linestyle='-.')
+    plt.plot(meses, minimos[meses], label='Mínimos', color='gold', linestyle=':')
+    plt.plot(meses, ano_corrente[meses].values[0], label='2024', color='black', marker='o')
+
+    # Configurações do gráfico
+    plt.title(f'Comparativo dos Focos Ativos - {bioma_name}')
+    plt.xlabel('Meses')
+    plt.ylabel('Número de Focos Ativos')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+# Chamada para gerar o gráfico (exemplo de uso em uma view)
+def dashboard_biomas(request):
+    filterset = BiomaFilter(request.GET or None)
+    bioma_data = None
+    bioma_name = None
+
+    if filterset.is_valid():
+        bioma_name = filterset.cleaned_data.get('Bioma')
+        bioma_model = seletor_bioma(bioma_name)
+        if bioma_model:
+            bioma_data = obter_dados(bioma_model)
+            serie_historica(bioma_data, bioma_name)
+
+    context = {
+        'filterset': filterset,
+    }
+    return render(request, 'dashboard_biomas.html', context)
+
+def heatmap_focos_ativos(df, bioma_name):
+    # Preparar os dados para o heatmap
+    df_heatmap = df.melt(id_vars=['anos'],
+                         value_vars=['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto',
+                                     'setembro', 'outubro', 'novembro', 'dezembro'],
+                         var_name='mes', value_name='focos_ativos')
+
+    # Criação do heatmap
+    plt.figure(figsize=(12, 8))
+    heatmap_data = df_heatmap.pivot('anos', 'mes', 'focos_ativos')
+    sns.heatmap(heatmap_data, cmap="YlGnBu", annot=True, fmt="g")
+
+    # Configurações do gráfico
+    plt.title(f'Heatmap dos Focos Ativos por Mês e Ano - {bioma_name}')
+    plt.xlabel('Meses')
+    plt.ylabel('Anos')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+
+# Exemplo de chamada para gerar o heatmap para o Bioma selecionado
+def visualizar_heatmap(request):
+    filterset = BiomaFilter(request.GET or None)
+    bioma_data = None
+    bioma_name = None
+
+    if filterset.is_valid():
+        bioma_name = filterset.cleaned_data.get('Bioma')
+        bioma_model = seletor_bioma(bioma_name)
+        if bioma_model:
+            bioma_data = obter_dados(bioma_model)
+            heatmap_focos_ativos(bioma_data, bioma_name)
+
+    context = {
+        'filterset': filterset,
+    }
+    return render(request, 'painel_geral.html', context)
