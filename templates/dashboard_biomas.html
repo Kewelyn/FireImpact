@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar por Bioma</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        #charts {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+        #charts img {
+            max-width: 100%;
+            height: auto;
+            width: 48%;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            overflow-y: auto;
+        }
+        p {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body class="d-flex">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar">
+        <!-- Sidebar content -->
+    </div>
+    <div class="flex-grow-1 p-3">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Filtrar por Bioma</h1>
+            </div>
+            <form method="GET">
+                {{ filterset.form.as_p }}
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+            <div id="charts">
+                {% if bioma_data %}
+                    <img id="chart-img" src="{% url 'chart' bioma_data.0.id %}">
+                    <p><strong>Gráfico 1.</strong> Este gráfico apresenta os dados do bioma selecionado.</p>
+                    <img id="chart-ordered-img" src="{% url 'chart_ordered' bioma_data.0.id %}">
+                    <p><strong>Gráfico 2.</strong> Este gráfico apresenta a distribuição das culturas no bioma selecionado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
