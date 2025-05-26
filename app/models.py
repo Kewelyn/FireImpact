@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class BiomaAmazonia(models.Model):
+class Amazonia(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)
@@ -23,7 +23,7 @@ class BiomaAmazonia(models.Model):
     def  __str__(self):
         return self.total
 
-class BiomaCerrado(models.Model):
+class Cerrado(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)
@@ -45,7 +45,7 @@ class BiomaCerrado(models.Model):
     def __str__(self):
         return self.total
 
-class BiomaCaatinga(models.Model):
+class Caatinga(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)
@@ -67,7 +67,7 @@ class BiomaCaatinga(models.Model):
     def __str__(self):
         return self.total
 
-class BiomaPampa(models.Model):
+class Pampa(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)
@@ -89,7 +89,7 @@ class BiomaPampa(models.Model):
     def __str__(self):
         return self.total
 
-class BiomaPantanal(models.Model):
+class Pantanal(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)
@@ -111,7 +111,7 @@ class BiomaPantanal(models.Model):
     def __str__(self):
         return self.total
 
-class BiomaMataAtlantica(models.Model):
+class MataAtlantica(models.Model):
     maxima = models.CharField(max_length=40)
     media = models.IntegerField()
     minima = models.CharField(max_length=10)

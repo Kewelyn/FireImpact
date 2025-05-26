@@ -7,7 +7,7 @@ from .filters import BiomaFilter
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UploadFileForm, BiomaAmazoniaForm, BiomaCerradoForm, BiomaCaatingaForm, BiomaPampaForm, BiomaPantanalForm, BiomaMataAtlanticaForm
-from . models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
+from . models import Amazonia, Cerrado, Caatinga, Pampa, Pantanal, MataAtlantica
 
 # Create your views here.
 
@@ -22,17 +22,17 @@ def importar_dados(request):
             reader = csv.DictReader(io.StringIO(request.FILES["file"].read().decode('utf-8')))
 
             if bioma == 'BiomaAmazonia':
-                model = BiomaAmazonia
+                model = Amazonia
             elif bioma == 'BiomaCerrado':
-                model = BiomaCerrado
+                model = Cerrado
             elif bioma == 'BiomaCaatinga':
-                model = BiomaCaatinga
+                model = Caatinga
             elif bioma == 'BiomaPampa':
-                model = BiomaPampa
+                model = Pampa
             elif bioma == 'BiomaPantanal':
-                model = BiomaPantanal
+                model = Pantanal
             elif bioma == 'BiomaMataAtlantica':
-                model = BiomaMataAtlantica
+                model = MataAtlantica
 
             for row in reader:
                 model.objects.create(
@@ -61,27 +61,27 @@ def importar_dados(request):
     return render(request, 'importar_dados.html', {'form': form})
 
 def listar_amazonia(request):
-    Amazonia = BiomaAmazonia.objects.all()
+    Amazonia = Amazonia.objects.all()
     return render(request, 'listar_amazonia.html',{'Amazonia':Amazonia})
 
 def listar_cerrado(request):
-    Cerrado = BiomaCerrado.objects.all()
+    Cerrado = Cerrado.objects.all()
     return render(request, 'listar_cerrado.html',{'Cerrado':Cerrado})
 
 def listar_caatinga(request):
-    Caatinga = BiomaCaatinga.objects.all()
+    Caatinga = Caatinga.objects.all()
     return render(request, 'listar_caatinga.html',{'Caatinga':Caatinga})
 
 def listar_pampa(request):
-    Pampa = BiomaPampa.objects.all()
+    Pampa = Pampa.objects.all()
     return render(request, 'listar_pampa.html',{'Pampa':Pampa})
 
 def listar_pantanal(request):
-    Pantanal = BiomaPantanal.objects.all()
+    Pantanal = Pantanal.objects.all()
     return render(request, 'listar_pantanal.html',{'Pantanal':Pantanal})
 
 def listar_atlantica(request):
-    MataAtlantica = BiomaMataAtlantica.objects.all()
+    MataAtlantica = MataAtlantica.objects.all()
     return render(request, 'listar_atlantica.html',{'MataAtlantica':MataAtlantica})
 
 def delete_amazonia(request, id):
@@ -315,7 +315,7 @@ def downloadCSVBiomaAmazonia(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaAmazonia.objects.all().values_list(
+    dados = Amazonia.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -333,7 +333,7 @@ def downloadCSVBiomaCerrado(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaCerrado.objects.all().values_list(
+    dados = Cerrado.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -351,7 +351,7 @@ def downloadCSVBiomaCaatinga(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaCaatinga.objects.all().values_list(
+    dados = Caatinga.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -369,7 +369,7 @@ def downloadCSVBiomaPampa(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaPampa.objects.all().values_list(
+    dados = Pampa.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -387,7 +387,7 @@ def downloadCSVBiomaPantanal(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaPantanal.objects.all().values_list(
+    dados = Pantanal.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -405,7 +405,7 @@ def downloadCSVBiomaMataAtlantica(request):
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'])
 
-    dados = BiomaMataAtlantica.objects.all().values_list(
+    dados = MataAtlantica.objects.all().values_list(
         'maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
         'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
@@ -415,18 +415,18 @@ def downloadCSVBiomaMataAtlantica(request):
     return response
 
 def downloadBiomaAmazonia(request, pk):
-    Amazonia = get_object_or_404(BiomaAmazonia, pk=pk)
+    Amazonia = get_object_or_404(Amazonia, pk=pk)
     response = FileResponse(Amazonia.arquivo)
     return response
 
 def seletor_bioma(bioma_name):
     biomas = {
-        'Amazônia': BiomaAmazonia,
-        'Cerrado': BiomaCerrado,
-        'Caatinga': BiomaCaatinga,
-        'Pampa': BiomaPampa,
-        'Pantanal': BiomaPantanal,
-        'Mata Atlântica': BiomaMataAtlantica,
+        'Amazônia': Amazonia,
+        'Cerrado': Cerrado,
+        'Caatinga': Caatinga,
+        'Pampa': Pampa,
+        'Pantanal': Pantanal,
+        'Mata Atlântica': MataAtlantica,
     }
     return biomas.get(bioma_name)
 
@@ -482,12 +482,12 @@ def serie_historica(df, bioma_name):
 
 def grafico_comparativo_biomas():
     # Obter dados de todos os biomas
-    dados_amazonia = obter_dados(BiomaAmazonia)
-    dados_cerrado = obter_dados(BiomaCerrado)
-    dados_caatinga = obter_dados(BiomaCaatinga)
-    dados_pampa = obter_dados(BiomaPampa)
-    dados_pantanal = obter_dados(BiomaPantanal)
-    dados_atlantica = obter_dados(BiomaMataAtlantica)
+    dados_amazonia = obter_dados(Amazonia)
+    dados_cerrado = obter_dados(Cerrado)
+    dados_caatinga = obter_dados(Caatinga)
+    dados_pampa = obter_dados(Pampa)
+    dados_pantanal = obter_dados(Pantanal)
+    dados_atlantica = obter_dados(MataAtlantica)
 
     # Lista de DataFrames e nomes dos biomas
     biomas = [
@@ -521,12 +521,12 @@ grafico_comparativo_biomas()
 
 def grafico_pizza_biomas():
     # Obter dados de todos os biomas
-    dados_amazonia = obter_dados(BiomaAmazonia)
-    dados_cerrado = obter_dados(BiomaCerrado)
-    dados_caatinga = obter_dados(BiomaCaatinga)
-    dados_pampa = obter_dados(BiomaPampa)
-    dados_pantanal = obter_dados(BiomaPantanal)
-    dados_atlantica = obter_dados(BiomaMataAtlantica)
+    dados_amazonia = obter_dados(Amazonia)
+    dados_cerrado = obter_dados(Cerrado)
+    dados_caatinga = obter_dados(Caatinga)
+    dados_pampa = obter_dados(Pampa)
+    dados_pantanal = obter_dados(Pantanal)
+    dados_atlantica = obter_dados(MataAtlantica)
 
     # Lista de DataFrames e nomes dos biomas
     biomas = [

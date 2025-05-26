@@ -1,47 +1,47 @@
 from rest_framework import viewsets
 from .serializers import BiomaAmazoniaSerializer, BiomaCerradoSerializer, BiomaCaatingaSerializer, BiomaPampaSerializer, BiomaPantanalSerializer, BiomaMataAtlanticaSerializer
-from .models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
+from .models import Amazonia, Cerrado, Caatinga, Pampa, Pantanal, MataAtlantica
 
 class BiomaAmazoniaViewSet(viewsets.ModelViewSet):
-    model = BiomaAmazonia
+    model = Amazonia
     serializer_class = BiomaAmazoniaSerializer
-    queryset = BiomaAmazonia.objects.all()
+    queryset = Amazonia.objects.all()
     filter_fields = ('maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro')
 
 class BiomaCerradoViewSet(viewsets.ModelViewSet):
-    model = BiomaCerrado
+    model = Cerrado
     serializer_class = BiomaCerradoSerializer
-    queryset = BiomaCerrado.objects.all()
+    queryset = Cerrado.objects.all()
     filter_fields = ('maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro')
 
 class BiomaCaatingaViewSet(viewsets.ModelViewSet):
-    model = BiomaCaatinga
+    model = Caatinga
     serializer_class = BiomaCaatingaSerializer
-    queryset = BiomaCaatinga.objects.all()
+    queryset = Caatinga.objects.all()
     filter_class = ('maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro')
 
 class BiomaPampaViewSet(viewsets.ModelViewSet):
-    model = BiomaPampa
+    model = Pampa
     serializer_class = BiomaPampaSerializer
-    queryset = BiomaPampa.objects.all()
+    queryset = Pampa.objects.all()
     filter_class = ('maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
                     'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
 class BiomaPantanalViewSet(viewsets.ModelViewSet):
-    model = BiomaPantanal
+    model = Pantanal
     serializer_class = BiomaPantanalSerializer
-    queryset = BiomaPantanal.objects.all()
+    queryset = Pantanal.objects.all()
     filter_class = ('maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
                     'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 
 
 class BiomaMataAtlanticaViewSet(viewsets.ModelViewSet):
-    model = BiomaMataAtlantica
+    model = MataAtlantica
     serializer_class = BiomaMataAtlanticaSerializer
-    queryset = BiomaMataAtlantica.objects.all()
+    queryset = MataAtlantica.objects.all()
     filter_class = ('maxima', 'media', 'minima', 'anos', 'total', 'janeiro', 'fevereiro', 'marco', 'abril', 'maio',
                     'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro')
 

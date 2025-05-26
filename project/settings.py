@@ -80,10 +80,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.sqlite3',  # Certifique-se de que o ENGINE está correto
+        'NAME': BASE_DIR / 'db.sqlite3',  # O nome do banco de dados (db.sqlite3)
     }
 }
+
 
 
 # Password validation

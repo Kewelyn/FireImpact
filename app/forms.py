@@ -1,50 +1,50 @@
 from django.forms import ModelForm
 from django import forms
-from .models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
+from .models import Amazonia, Cerrado, Caatinga, Pampa, Pantanal, MataAtlantica
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
     bioma = forms.ChoiceField(choices=[
-        ('BiomaAmazonia', 'Amazonia'),
-        ('BiomaCerrado', 'Cerrado'),
-        ('BiomaCaatinga', 'Caatinga'),
-        ('BiomaPampa', 'Pampa'),
-        ('BiomaPantanal', 'Pantanal'),
-        ('BiomaMataAtlantica', 'Mata Atlantica')
+        ('Amazonia', 'Amazonia'),
+        ('Cerrado', 'Cerrado'),
+        ('Caatinga', 'Caatinga'),
+        ('Pampa', 'Pampa'),
+        ('Pantanal', 'Pantanal'),
+        ('MataAtlantica', 'Mata Atlantica')
     ])
 
 class BiomaAmazoniaForm(ModelForm):
     class Meta:
-        model = BiomaAmazonia
+        model = Amazonia
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaCerradoForm(ModelForm):
     class Meta:
-        model = BiomaCerrado
+        model = Cerrado
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaCaatingaForm(ModelForm):
     class Meta:
-        model = BiomaCaatinga
+        model = Caatinga
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaPampaForm(ModelForm):
     class Meta:
-        model = BiomaPampa
+        model = Pampa
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaPantanalForm(ModelForm):
     class Meta:
-        model = BiomaPantanal
+        model = Pantanal
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaMataAtlanticaForm(ModelForm):
     class Meta:
-        model = BiomaMataAtlantica
+        model = MataAtlantica
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']

@@ -1,38 +1,38 @@
-from .models import BiomaAmazonia, BiomaCerrado, BiomaCaatinga, BiomaPampa, BiomaPantanal, BiomaMataAtlantica
+from .models import Amazonia, Cerrado, Caatinga, Pampa, Pantanal, MataAtlantica
 from rest_framework import serializers
 
 class BiomaAmazoniaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaAmazonia
+        model = Amazonia
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaCerradoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaCerrado
+        model = Cerrado
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaCaatingaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaCaatinga
+        model = Caatinga
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaPampaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaPampa
+        model = Pampa
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaPantanalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaPantanal
+        model = Pantanal
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
 
 class BiomaMataAtlanticaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BiomaMataAtlantica
+        model = MataAtlantica
         fields = ['maxima','media','minima', 'anos','total', 'janeiro', 'fevereiro','marco', 'abril', 'maio',
                   'junho', 'julho','agosto','setembro','outubro','novembro','dezembro']
