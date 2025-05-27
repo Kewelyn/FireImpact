@@ -85,32 +85,32 @@ def listar_atlantica(request):
     return render(request, 'listar_atlantica.html',{'MataAtlantica':MataAtlantica})
 
 def delete_amazonia(request, id):
-    Amazonia = get_object_or_404(BiomaAmazonia, pk=id)
+    Amazonia = get_object_or_404(Amazonia, pk=id)
     Amazonia.delete()
     return redirect("listar_amazonia")
 
 def delete_cerrado(request, id):
-    Cerrado = get_object_or_404(BiomaCerrado, pk=id)
+    Cerrado = get_object_or_404(Cerrado, pk=id)
     Cerrado.delete()
     return redirect("listar_cerrado")
 
 def delete_caatinga(request, id):
-    Caatinga = get_object_or_404(BiomaCaatinga, pk=id)
+    Caatinga = get_object_or_404(Caatinga, pk=id)
     Caatinga.delete()
     return redirect("listar_caatinga")
 
 def delete_pampa(request, id):
-    Pampa = get_object_or_404(BiomaPampa, pk=id)
+    Pampa = get_object_or_404(Pampa, pk=id)
     Pampa.delete()
     return redirect("listar_pampa")
 
 def delete_pantanal(request, id):
-    Pantanal = get_object_or_404(BiomaPantanal, pk=id)
+    Pantanal = get_object_or_404(Pantanal, pk=id)
     Pantanal.delete()
     return redirect("listar_pantanal")
 
 def delete_atlantica(request, id):
-    MataAtlantica = get_object_or_404(BiomaMataAtlantica, pk=id)
+    MataAtlantica = get_object_or_404(MataAtlantica, pk=id)
     MataAtlantica.delete()
     return redirect("listar_atlantica")
 
@@ -459,7 +459,7 @@ def filtrar_bioma(request):
     return render(request, 'filtrar_bioma.html', context)
 
 # Função para plotar a série histórica
-def serie_historica(df, bioma_name):
+"""def serie_historica(df, bioma_name):
     # Definição dos dados para o gráfico
     anos = df['anos']
     total = df[['janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']].sum(axis=1)
@@ -517,7 +517,7 @@ def grafico_comparativo_biomas():
     plt.show()
 
 # Chamada para gerar o gráfico comparativo entre biomas
-grafico_comparativo_biomas()
+#grafico_comparativo_biomas()
 
 def grafico_pizza_biomas():
     # Obter dados de todos os biomas
@@ -649,4 +649,4 @@ def visualizar_heatmap(request):
     context = {
         'filterset': filterset,
     }
-    return render(request, 'painel_geral.html', context)
+    return render(request, 'painel_geral.html', context)"""
